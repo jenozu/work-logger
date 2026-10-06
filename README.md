@@ -19,6 +19,7 @@ Create these in Vercel:
 DATABASE_URL=your Neon pooled connection string
 WORK_LOGGER_PIN=your private PIN
 SESSION_SECRET=a long random secret
+SHORTCUT_API_KEY=a separate long random secret for iPhone Shortcuts
 ```
 
 The app creates the work_logs table automatically on first database access.
@@ -28,6 +29,30 @@ The app creates the work_logs table automatically on first database access.
 2. Add the three environment variables above.
 3. Deploy.
 4. Open the production URL and sign in with your PIN.
+
+## iPhone Shortcut
+
+The shortcut endpoint is:
+
+```text
+POST /api/shortcut/log
+```
+
+Send JSON:
+
+```json
+{
+  "entry": "Finished receiving the Deutz shipment"
+}
+```
+
+with this header:
+
+```text
+Authorization: Bearer YOUR_SHORTCUT_API_KEY
+```
+
+Keep `SHORTCUT_API_KEY` in Vercel only; do not commit the real value to GitHub.
 
 ## Intentionally excluded from V1
 - iPhone voice/Siri Shortcut submission
