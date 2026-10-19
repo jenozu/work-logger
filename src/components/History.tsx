@@ -61,9 +61,12 @@ export default function History() {
       <header className="topbar">
         <div>
           <h1>History</h1>
-          <div className="muted">Your most recent 500 entries</div>
+          <div className="muted">Your most recent 500 quick-log entries</div>
         </div>
-        <Link className="button-link secondary" href="/">Today</Link>
+        <nav className="nav">
+          <Link className="button-link secondary" href="/daily">Daily Sheet</Link>
+          <Link className="button-link secondary" href="/">Today</Link>
+        </nav>
       </header>
 
       {groups.length === 0 ? (

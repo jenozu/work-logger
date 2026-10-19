@@ -120,6 +120,7 @@ export default function Logger() {
           <div className="muted">{todayLabel()}</div>
         </div>
         <nav className="nav">
+          <Link className="button-link secondary" href="/daily">Daily Sheet</Link>
           <Link className="button-link secondary" href="/history">History</Link>
           <button className="secondary" onClick={logout}>Log out</button>
         </nav>

@@ -10,7 +10,9 @@ export function db() {
 
 export async function ensureSchema() {
   if (initialized) return;
+
   const sql = db();
+
   await sql`
     CREATE TABLE IF NOT EXISTS work_logs (
       id BIGSERIAL PRIMARY KEY,
@@ -18,5 +20,17 @@ export async function ensureSchema() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `;
+
+  await sql`
+    CREATE TABLE IF NOT EXISTS daily_log_entries (
+      id BIGSERIAL PRIMARY KEY,
+      work_date DATE NOT NULL,
+      slot_key TEXT NOT NULL,
+      task TEXT NOT NULL DEFAULT '',
+      updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+      UNIQUE (work_date, slot_key)
+    )
+  `;
+
   initialized = true;
 }

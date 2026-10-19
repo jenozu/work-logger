@@ -1,18 +1,20 @@
 # Work Logger
 
-A tiny private daily work log built for fast text entry from a phone or desktop.
+A private work logger for quick task capture and manager-ready daily timesheets.
 
-## MVP
+## Features
+
 - PIN-protected access
-- Submit a text entry
-- Automatic timestamp
-- Today's entries
-- Edit/delete entries
-- History grouped by day
+- Quick text logging with automatic timestamps
+- iPhone Shortcut submission endpoint
+- Daily log sheet with fixed workday time blocks from 7:00 AM to 4:30 PM
+- Retroactive weekday entry by selected date
+- Date-range CSV export for management
 - Neon Postgres storage
 - Vercel-ready
 
 ## Environment variables
+
 Create these in Vercel:
 
 ```text
@@ -22,23 +24,44 @@ SESSION_SECRET=a long random secret
 SHORTCUT_API_KEY=a separate long random secret for iPhone Shortcuts
 ```
 
-The app creates the work_logs table automatically on first database access.
+The app creates its database tables automatically on first access.
 
-## Deploy
-1. Import this repository into Vercel.
-2. Add the three environment variables above.
-3. Deploy.
-4. Open the production URL and sign in with your PIN.
+## Main routes
+
+```text
+/          Quick logger
+/history   Quick-log history
+/daily     Daily manager log sheet
+```
+
+## Daily sheet
+
+The daily sheet provides these fixed blocks:
+
+- 7:00 AM - 8:00 AM
+- 8:00 AM - 9:00 AM
+- 9:00 AM - 10:00 AM
+- 10:00 AM - 11:00 AM
+- 11:00 AM - 12:00 PM
+- 12:00 PM - 1:00 PM
+- 1:00 PM - 2:00 PM
+- 2:00 PM - 3:00 PM
+- 3:00 PM - 4:00 PM
+- 4:00 PM - 4:30 PM
+
+Choose any Monday-Friday date to enter or update that day's record.
+
+CSV export is available from the same page using From and To dates. The export includes every weekday and every time block in the range so it can be used as a consistent submission sheet.
 
 ## iPhone Shortcut
 
-The shortcut endpoint is:
+Endpoint:
 
 ```text
 POST /api/shortcut/log
 ```
 
-Send JSON:
+JSON body:
 
 ```json
 {
@@ -46,18 +69,10 @@ Send JSON:
 }
 ```
 
-with this header:
+Header:
 
 ```text
 Authorization: Bearer YOUR_SHORTCUT_API_KEY
 ```
 
 Keep `SHORTCUT_API_KEY` in Vercel only; do not commit the real value to GitHub.
-
-## Intentionally excluded from V1
-- iPhone voice/Siri Shortcut submission
-- AI summaries
-- tags/categories
-- reminders
-- weekly/monthly reporting
-- CSV/Markdown export

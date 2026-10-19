@@ -19,10 +19,11 @@ html, body {
 button, textarea, input { font: inherit; }
 a { color: inherit; }
 .shell {
-  width: min(680px, calc(100% - 28px));
+  width: min(760px, calc(100% - 28px));
   margin: 0 auto;
   padding: 28px 0 60px;
 }
+.daily-shell { width: min(920px, calc(100% - 28px)); }
 .topbar {
   display: flex;
   align-items: center;
@@ -65,6 +66,7 @@ button, .button-link {
   align-items: center;
   justify-content: center;
 }
+button:disabled { opacity: .5; cursor: not-allowed; }
 .secondary { background: #ececea; color: var(--text); }
 .log-row {
   display: grid;
@@ -96,7 +98,7 @@ button, .button-link {
   font-size: .9rem;
   color: var(--muted);
 }
-.nav { display: flex; gap: 8px; align-items: center; }
+.nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
 .nav a, .nav button { font-size: .9rem; }
 .day-group { margin-bottom: 24px; }
 .day-label {
@@ -111,8 +113,61 @@ button, .button-link {
   margin: 12vh auto 0;
 }
 .login button { width: 100%; margin-top: 10px; }
-@media (max-width: 520px) {
-  .shell { width: min(100% - 20px, 680px); padding-top: 18px; }
+.field-row {
+  display: grid;
+  grid-template-columns: minmax(180px, 260px) 1fr;
+  gap: 16px;
+  align-items: end;
+}
+.field-label {
+  display: block;
+  font-size: .8rem;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.selected-date {
+  min-height: 46px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.warning {
+  margin: 12px 0 0;
+  color: var(--danger);
+  font-size: .9rem;
+}
+.daily-grid {
+  border-top: 1px solid var(--line);
+}
+.daily-row {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+}
+.daily-row textarea {
+  min-height: 64px;
+}
+.slot-label {
+  padding-top: 13px;
+  font-size: .9rem;
+  font-weight: 600;
+}
+.export-row {
+  grid-template-columns: minmax(150px, 1fr) minmax(150px, 1fr) auto;
+}
+.export-row button {
+  min-height: 46px;
+}
+@media (max-width: 640px) {
+  .shell, .daily-shell { width: min(100% - 20px, 920px); padding-top: 18px; }
+  .topbar { align-items: flex-start; flex-direction: column; }
+  .nav { justify-content: flex-start; }
   .log-row { grid-template-columns: 60px 1fr; }
   .row-actions { grid-column: 2; }
+  .field-row, .export-row { grid-template-columns: 1fr; }
+  .daily-row { grid-template-columns: 1fr; gap: 6px; }
+  .slot-label { padding-top: 0; }
 }
