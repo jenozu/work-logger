@@ -55,7 +55,7 @@ export async function PUT(request: NextRequest) {
 
   const body = await request.json().catch(() => null);
   const date = typeof body?.date === "string" ? body.date : "";
-  const entries = Array.isArray(body?.entries) ? body.entries : [];
+  const entries: unknown[] = Array.isArray(body?.entries) ? body.entries : [];
 
   if (!validDate(date) || !isWeekday(date)) {
     return NextResponse.json(
